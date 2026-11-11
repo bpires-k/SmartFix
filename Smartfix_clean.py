@@ -3,20 +3,7 @@ import datetime
 import os
 import sqlite3
 import platform
-
-try:
-    import keyboard
-except ImportError:
-    class _KeyboardFallback:
-        @staticmethod
-        def is_pressed(key):
-            return False
-
-        @staticmethod
-        def wait(key=None, suppress=False):
-            return None
-
-    keyboard = _KeyboardFallback()
+import keyboard
 
 #colocar keyboard a funcionar para fazer funcao de carregar no enter para voltar ao menu
 # --- CRIAÇÃO AUTOMÁTICA DO FICHEIRO DE LOGS ---
@@ -28,22 +15,19 @@ if not os.path.exists("log_erros.txt"):
 basedados = "BDSmartFix2.db"
 dt = datetime.datetime.now()
 
-def limpar_cmd():
-    
+def limpar_cmd(): 
     if platform.system() == "Windows":
         os.system("cls")
     else:
         os.system("clear")
 
 
-def aguardar_enter_para_menu():
-    if keyboard is not None and hasattr(keyboard, "wait"):
-        keyboard.wait("enter")
-
-    if platform.system() == "Windows":
-        os.system("cls")
-    else:
-        os.system("clear")
+def ispressed():
+    print("\nPressione q e Enter para voltar ao Menu Inicial")
+    while True:
+        tecla = input().strip().lower()
+        if tecla == "q":
+            break
 
 def registar_log(mensagem):
     try:
@@ -292,8 +276,9 @@ def consultar_clientes():
         registar_log(f"Consulta Clientes - Erro BD: {e}")
         return []
     finally:
-            if conexao is not None:
-                conexao.close() 
+        if conexao is not None:
+            conexao.close()
+        ispressed()
 
 def alterar_cliente():
     print("\n--- ALTERAR DADOS DE CLIENTE ---")
@@ -421,8 +406,9 @@ def consultar_telemoveis():
         print(f"-> Erro ao consultar telemóveis: {e}")
         registar_log(f"Consulta Telemóveis - Erro BD: {e}")
     finally:
-            if conexao is not None:
-                conexao.close() 
+        if conexao is not None:
+            conexao.close()
+        ispressed()
 
 # Alterar dados de telemovel na BD
 def alterar_telemovel():
@@ -579,8 +565,7 @@ def consultar_reparações():
         print(f"-> Erro ao consultar reparações: {e}")
         registar_log(f"Consulta Reparações - Erro BD: {e}")
     finally:
-        print("Pressione V para voltar ao menu inicial")
-        if ispressed()
+        ispressed()
         if conexao is not None:
             conexao.close() 
     
