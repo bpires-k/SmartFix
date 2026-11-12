@@ -20,14 +20,15 @@ def limpar_cmd():
     else:
         os.system("clear")
 
-
+# FUNÇÕES AUXILIARES
+# Função para aguardar que o utilizador pressione a tecla 'q' para voltar ao menu inicial
 def ispressed():
     print("\nPressione q e Enter para voltar ao Menu Inicial")
     while True:
         tecla = input().strip().lower()
         if tecla == "q":
             break
-
+# Função para registar logs de erros em ficheiro
 def registar_log(mensagem):
     try:
         with open("log_erros.txt", "a", encoding="utf-8") as ficheiro:
@@ -35,7 +36,7 @@ def registar_log(mensagem):
             ficheiro.write(f"[{data_atual}] ERRO: {mensagem}\n")
     except Exception as erro:
         print(f"Não foi possível gravar o log: {erro}")
-        
+# Função para cancelar o processo de registo        
 def cancelar_processo(tipo_registo, pk):
     if pk == '-':
         print("Cancelado com Sucesso")
@@ -281,6 +282,7 @@ def consultar_clientes():
 
 def alterar_cliente():
     print("\n--- ALTERAR DADOS DE CLIENTE ---")
+    # validacao de dados
     nif = validar_nif("Alterar dados cliente")
     if not nif:
         return
@@ -316,7 +318,7 @@ def alterar_cliente():
         novo_email = validar_email("Alterar dados cliente", nif)
         if not novo_email:
             return
-
+# Ligação à base de dados e atualização dos dados do cliente
         cursor.execute("""
             UPDATE Cliente
             SET Nome = ?, "Data Nascimento" = ?, Sexo = ?, "Nr Telemovel" = ?, email = ?
@@ -336,6 +338,7 @@ def alterar_cliente():
 ##### Registo de telemoveis #####
 def registar_telemovel():
     print("\n--- REGISTAR NOVO TELEMÓVEL ---")
+    # validacao de dados
     conexao = None
     try:
         marca = validar_str("a marca do telemóvel", "Registar novo telemóvel", "sem pk")
@@ -356,14 +359,14 @@ def registar_telemovel():
 
         conexao = sqlite3.connect(basedados)
         cursor = conexao.cursor()
-       
+       # verificar se o estado existe na tabela Estado
         cursor.execute("SELECT * FROM Estado WHERE ID = ?", (estado,))
         if not cursor.fetchone():
             print(f"-> Aviso: O ID de estado {estado} não existe na tabela 'Estado'.")
             registar_log(f"Registo Telemóvel - Estado ID inexistente na BD: {estado}") 
             conexao.close()
             return
-
+# Ligação à base de dados e inserção do telemóvel
         cursor.execute("""
             INSERT INTO Telemovel (Marca, Modelo, RAM, Disco, Estado)
             VALUES (?, ?, ?, ?, ?)
@@ -386,6 +389,7 @@ def registar_telemovel():
 # Consultar lista de telemoveis registados na BD
 def consultar_telemoveis():
     print("\n--- LISTA DE TELEMÓVEIS ---")
+    # validacao de dados
     conexao = None
     try:
         conexao = sqlite3.connect(basedados)
@@ -448,6 +452,7 @@ def alterar_telemovel():
         novo_estado = validar_estado_tlm("Alterar dados de telemóvel", id)
         if not novo_estado:
             return
+        # Ligação à base de dados e atualização dos dados do telemóvel
         cursor.execute("""
             UPDATE Telemovel
             SET Marca = ?, Modelo = ?, RAM = ?, Disco = ?, Estado = ?
@@ -468,6 +473,7 @@ def alterar_telemovel():
 def criar_pedido():   
     print("\n--- CRIAR/AGENDAR PEDIDO DE REPARAÇÃO ---")
     tipo_registo = "Criar pedido de reparação"
+    # validacao de dados
     conexao = None
     try:
         nif = validar_nif(tipo_registo)
@@ -511,10 +517,13 @@ def criar_pedido():
         valor_reparacao = valor_pecas + (20 * duracao)
         if not valor_reparacao:
                 return
+        # Determinar o estado do serviço com base na data de fim
         if dt_fim != None:
             estado_servico = "Concluída"
         else:
             estado_servico = "Agendada"
+
+        # Ligação à base de dados e inserção do pedido de reparação
         cursor.execute(
             """INSERT INTO Reparacao
                (NIF, IDTelemovel, Obs, DtInicio, DtPrevistaFim, DtFim,
@@ -535,6 +544,7 @@ def criar_pedido():
 # Consultar lista de reparações
 def consultar_reparações():
     print("\n--- LISTA DE REPARAÇÕES ---")
+    # Input do filtro de reparações a consultar
     filtro = input("Quais as reparações que deseja consultar? (1-Todas (default), 2-Agendadas, 3-Em Curso, 4-Concluída): ").strip()
     conexao = None
     try:
@@ -572,6 +582,7 @@ def consultar_reparações():
 def alterar_estado_rep():
     tipo_registo = "Alterar estado de reparação"
     print("\n--- ALTERAR ESTADO DE REPARAÇÃO ---")
+    # validacao de dados
     id = validar_id(tipo_registo)
     if not id:
         return
@@ -606,6 +617,7 @@ def alterar_estado_rep():
             registar_log(f"Alterar Estado Reparação - Opção inválida (ID {id}): {novo_estado}") 
             conexao.close()
             return
+        # Ligação à base de dados e atualização do estado da reparação
         cursor.execute("""
             UPDATE Reparacao
             SET EstadoServico = ?
@@ -624,6 +636,7 @@ def alterar_estado_rep():
 def alterar_reparacoes():
     print("\n--- ALTERAR REGISTO DE REPARAÇÃO ---")
     tipo_registo = "Alterar reparação"
+    # validacao de dados
     id = validar_id(tipo_registo)
     if not id:
         return
@@ -665,6 +678,7 @@ def alterar_reparacoes():
             estado_servico = "Concluída"
         else:
             estado_servico = "Agendada"
+        # Ligação à base de dados e atualização do registo da reparação
         cursor.execute("""
             UPDATE Reparacao
             SET Obs = ?, DtInicio = ?, DtPrevistaFim = ?, DtFim = ?, ValorPecas = ?, ValorReparacao = ?, EstadoServico = ?
@@ -680,7 +694,7 @@ def alterar_reparacoes():
             if conexao is not None:
                 conexao.close()  
 ##################################################### MENU PRINCIPAL DO SISTEMA #####################################################
- 
+
 def menu():
     while True:
         limpar_cmd()
