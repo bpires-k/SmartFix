@@ -1,1 +1,0 @@
-[2026-11-12 17:57:08] SISTEMA: Ficheiro de logs criado e sistema iniciado.
