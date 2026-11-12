@@ -90,7 +90,6 @@ def validar_data(tipo_data, tipo_registo, pk):
                     registar_log(f"Registo {tipo_registo} - Data inválida (chave primária {pk}): {data}")
                     break
             if len(partes_data[0]) == 2 and len(partes_data[1]) == 2 and len(partes_data[2]) == 4:
-                data = datetime.datetime.strptime(data, "%d-%m-%Y")
                 return data
             else:
                 print("-> Erro: Data inválida, formato com valores errados. Utilize o formato DD-MM-AAAA com digitos numéricos.")
@@ -99,6 +98,33 @@ def validar_data(tipo_data, tipo_registo, pk):
             print("-> Erro: Data inválida. Utilize o formato DD-MM-AAAA com digitos numéricos.")
             registar_log(f"{tipo_registo} - Data inválida (chave primária {pk}): {data}")
 
+def validar_data_fim(tipo_data, tipo_registo, pk):
+    while True:
+        i = 0
+        data = input(f"Introduza {tipo_data} (DD-MM-AAAA) (enter para ignorar, - para cancelar): ")
+        if data == "":
+            return data
+        if cancelar_processo(tipo_registo, data):
+            return "-"
+        partes_data = data.split('-')
+        if (len(partes_data) == 3):
+            while i < 3:
+                if partes_data[i].isdigit():
+                    i += 1
+                else:
+                    print("-> Erro: Data inválida, dígitos não numéricos. Utilize o formato DD-MM-AAAA com digitos numéricos.")
+                    registar_log(f"Registo {tipo_registo} - Data inválida (chave primária {pk}): {data}")
+                    break
+            if len(partes_data[0]) == 2 and len(partes_data[1]) == 2 and len(partes_data[2]) == 4:
+                data = datetime.datetime.strptime(data, "%d-%m-%Y")
+                return data
+            else:
+                print("-> Erro: Data inválida, formato com valores errados. Utilize o formato DD-MM-AAAA com digitos numéricos.")
+                registar_log(f"{tipo_registo} - Data inválida (chave primária {pk}): {data}")
+        else:
+            print("-> Erro: Data inválida. Utilize o formato DD-MM-AAAA com digitos numéricos.")
+            registar_log(f"{tipo_registo} - Data inválida (chave primária {pk}): {data}")
+            
 #validacao o input do sexo 
 def validar_sexo(tipo_registo, pk):
     while True:
@@ -245,7 +271,8 @@ def registar_cliente():
         registar_log(f"Registo Cliente - Erro BD (NIF {nif}): {e}")
     finally:
             if conexao is not None:
-                conexao.close() 
+                conexao.close()
+            ispressed()
         
 # Consulta de Clientes na BD 
 def consultar_clientes():
@@ -333,7 +360,8 @@ def alterar_cliente():
         registar_log(f"Alterar Cliente - Erro BD (NIF {nif}): {e}")
     finally:
             if conexao is not None:
-                conexao.close() 
+                conexao.close()
+            ispressed()
        
 ##### Registo de telemoveis #####
 def registar_telemovel():
@@ -384,7 +412,8 @@ def registar_telemovel():
         registar_log(f"Registo Telemóvel - Erro Inesperado: {e}")
     finally:
         if conexao is not None:
-            conexao.close() 
+            conexao.close()
+        ispressed()
         
 # Consultar lista de telemoveis registados na BD
 def consultar_telemoveis():
@@ -467,7 +496,8 @@ def alterar_telemovel():
         registar_log(f"Alterar Telemóvel - Erro BD (ID {id_telemovel}): {e}")
     finally:
             if conexao is not None:
-                conexao.close()  
+                conexao.close()
+            ispressed() 
         
 # Criar Pedido de reparação       
 def criar_pedido():   
@@ -503,8 +533,8 @@ def criar_pedido():
         dt_prevista_fim = validar_data("a data prevista de fim", tipo_registo, id)
         if not dt_prevista_fim:
                 return
-        dt_fim = validar_data("a data de fim", tipo_registo, id) or None
-        if not dt_fim:
+        dt_fim = validar_data_fim("a data de fim", tipo_registo, id)
+        if dt_fim == '-':
                 return
         valor_pecas = validar_valor_pecas("o valor das peças")
         if not valor_pecas:
@@ -518,7 +548,7 @@ def criar_pedido():
         if not valor_reparacao:
                 return
         # Determinar o estado do serviço com base na data de fim
-        if dt_fim != None:
+        if dt_fim != "":
             estado_servico = "Concluída"
         else:
             estado_servico = "Agendada"
@@ -540,6 +570,7 @@ def criar_pedido():
     finally:
         if conexao is not None:
             conexao.close()
+        ispressed()
             
 # Consultar lista de reparações
 def consultar_reparações():
@@ -576,7 +607,8 @@ def consultar_reparações():
     finally:
         ispressed()
         if conexao is not None:
-            conexao.close() 
+            conexao.close()
+        ispressed() 
     
 # Alterar estado da reparação
 def alterar_estado_rep():
@@ -631,7 +663,8 @@ def alterar_estado_rep():
         registar_log(f"Alterar Estado Reparação - Erro BD (ID {id}): {e}") 
     finally:
             if conexao is not None:
-                conexao.close() 
+                conexao.close()
+            ispressed()
 # Alterar Registo de Reparação
 def alterar_reparacoes():
     print("\n--- ALTERAR REGISTO DE REPARAÇÃO ---")
@@ -692,7 +725,8 @@ def alterar_reparacoes():
         registar_log(f"Alterar Registo Reparação - Erro BD (ID {id}): {e}")
     finally:
             if conexao is not None:
-                conexao.close()  
+                conexao.close()
+            ispressed()  
 ##################################################### MENU PRINCIPAL DO SISTEMA #####################################################
 
 def menu():

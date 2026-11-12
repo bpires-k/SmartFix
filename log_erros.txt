@@ -1,0 +1,42 @@
+[2026-11-12 19:23:14] SISTEMA: Ficheiro de logs criado e sistema iniciado.
+[2026-11-12 19:24:40] ERRO: Registar novo cliente - NIF inválido (12345678): O NIF deve ter exatamente 9 dígitos.
+[2026-11-12 19:25:00] ERRO: Registar novo cliente - NIF inválido (a): O NIF deve ter exatamente 9 dígitos.
+[2026-11-12 19:25:04] ERRO: Registar novo cliente - NIF inválido (): O NIF deve ter exatamente 9 dígitos.
+[2026-11-12 19:25:32] ERRO: Registar novo cliente - Data inválida (chave primária 123456789): 11-12-12345
+[2026-11-12 19:25:38] ERRO: Registo Registar novo cliente - Data inválida (chave primária 123456789): 11-12-a
+[2026-11-12 19:25:38] ERRO: Registar novo cliente - Data inválida (chave primária 123456789): 11-12-a
+[2026-11-12 19:26:06] ERRO: Registar novo cliente - Sexo inválido (NIF 123456789: A)
+[2026-11-12 19:26:43] ERRO: Registar novo cliente - Telemóvel inválido (NIF 123456789: 911234)
+[2026-11-12 19:27:06] ERRO: Registar novo cliente - Email inválido (NIF 123456789): email@a
+[2026-11-12 19:27:09] ERRO: Registar novo cliente - Email inválido (NIF 123456789): email
+[2026-11-12 19:30:00] ERRO: Registar novo telemóvel - Processo cancelado
+[2026-11-12 19:30:03] ERRO: Registar novo telemóvel - texto inválido (chave primária: sem pk: 123)
+[2026-11-12 19:30:56] ERRO:  Registar novo telemóvel - Estado ID não numérico: sem pk: novo
+[2026-11-12 19:30:59] ERRO:  Registar novo telemóvel - Estado ID não numérico: sem pk: a
+[2026-11-12 19:31:06] ERRO:  Registar novo telemóvel - Estado ID não numérico: sem pk: 4
+[2026-11-12 19:32:17] ERRO: Alterar Dados de Telemóvel - Processo cancelado
+[2026-11-12 19:33:35] ERRO: Registar novo cliente - Processo cancelado
+[2026-11-12 19:33:58] ERRO: Criar pedido de reparação - NIF inválido (70000000): O NIF deve ter exatamente 9 dígitos.
+[2026-11-12 19:34:08] ERRO: Criar Pedido - Cliente não encontrado (NIF 101010101)
+[2026-11-12 19:34:21] ERRO: Criar Pedido - Telemóvel não encontrado (ID 6)
+[2026-11-12 19:35:28] ERRO: Criar pedido de reparação - Data inválida (chave primária <built-in function id>): 
+[2026-11-12 19:37:00] ERRO: Criar pedido de reparação - Processo cancelado
+[2026-11-12 19:37:27] ERRO: Consulta Reparações - Filtro inválido introduzido: -
+[2026-11-12 19:37:52] ERRO: Criar pedido de reparação - Data inválida (chave primária <built-in function id>): 12-
+[2026-11-12 19:38:04] ERRO: Criar pedido de reparação - Data inválida (chave primária <built-in function id>): 
+[2026-11-12 19:38:24] ERRO: Alterar Dados de Telemóvel - Processo cancelado
+[2026-11-12 19:43:32] ERRO: Criar Pedido - Cliente não encontrado (NIF 101010101)
+[2026-11-12 19:43:40] ERRO: Criar Pedido - Cliente não encontrado (NIF 101010101)
+[2026-11-12 19:45:11] ERRO: Registar novo cliente - Processo cancelado
+[2026-11-12 19:59:25] ERRO: Criar pedido de reparação - NIF inválido (): O NIF deve ter exatamente 9 dígitos.
+[2026-11-12 19:59:26] ERRO: Criar pedido de reparação - NIF inválido (): O NIF deve ter exatamente 9 dígitos.
+[2026-11-12 19:59:27] ERRO: Criar pedido de reparação - NIF inválido (4): O NIF deve ter exatamente 9 dígitos.
+[2026-11-12 19:59:30] ERRO: Criar pedido de reparação - NIF inválido (7653): O NIF deve ter exatamente 9 dígitos.
+[2026-11-12 19:59:41] ERRO: Criar pedido de reparação - ID inválido: fw
+[2026-11-12 19:59:45] ERRO: Criar pedido de reparação - texto inválido (chave primária: <built-in function id>: )
+[2026-11-12 20:00:25] ERRO: Criar pedido de reparação - Data inválida (chave primária <built-in function id>): dugh
+[2026-11-12 20:00:32] ERRO: Criar pedido de reparação - Data inválida (chave primária <built-in function id>): dew
+[2026-11-12 20:02:00] ERRO: Registar novo cliente - Data inválida (chave primária 123456789): 11
+[2026-11-12 20:02:15] ERRO: Registo Cliente - Erro BD (NIF 123456789): UNIQUE constraint failed: Cliente.NIF
+[2026-11-12 20:03:22] ERRO: Registar novo telemóvel - Processo cancelado
+[2026-11-12 20:13:39] ERRO: Registar novo cliente - NIF inválido (19191919): O NIF deve ter exatamente 9 dígitos.
