@@ -3,7 +3,6 @@ import datetime
 import os
 import sqlite3
 import platform
-import keyboard
 
 #colocar keyboard a funcionar para fazer funcao de carregar no enter para voltar ao menu
 # --- CRIAÇÃO AUTOMÁTICA DO FICHEIRO DE LOGS ---
@@ -685,9 +684,9 @@ def alterar_reparacoes():
 def menu():
     while True:
         limpar_cmd()
-        print("\n" + "=" * 45)
+        print("\n" + "=" * 51)
         print("     SMARTFIX - SISTEMA DE GESTÃO E REPARAÇÕES     ")
-        print("=" * 45)
+        print("=" * 51)
         print("\n--- GESTÃO DE CLIENTES ---")
         print(" 1. Registar Novo Cliente")
         print(" 2. Consultar Clientes Registados")

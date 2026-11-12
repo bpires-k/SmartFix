@@ -98,3 +98,6 @@
 [2026-11-10 20:54:05] ERRO: Registar novo cliente - Processo cancelado
 [2026-11-10 21:01:13] ERRO: Registar novo cliente - Processo cancelado
 [2026-11-10 21:03:08] ERRO: Registar novo cliente - Processo cancelado
+[2026-11-11 19:02:12] ERRO: Consulta Reparações - Filtro inválido introduzido: -
+[2026-11-11 23:28:49] ERRO: Registar novo cliente - Processo cancelado
+[2026-11-11 23:29:36] ERRO: Alterar reparação - Processo cancelado
