@@ -40,3 +40,5 @@
 [2026-11-12 20:02:15] ERRO: Registo Cliente - Erro BD (NIF 123456789): UNIQUE constraint failed: Cliente.NIF
 [2026-11-12 20:03:22] ERRO: Registar novo telemóvel - Processo cancelado
 [2026-11-12 20:13:39] ERRO: Registar novo cliente - NIF inválido (19191919): O NIF deve ter exatamente 9 dígitos.
+[2026-11-12 21:14:55] ERRO: Criar Pedido - Erro Geral/BD: unsupported operand type(s) for -: 'str' and 'str'
+[2026-11-12 21:20:00] ERRO: Criar Pedido - Erro Geral/BD: time data '%d-%m-%Y' does not match format '11-11-1111'

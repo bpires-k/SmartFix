@@ -116,7 +116,6 @@ def validar_data_fim(tipo_data, tipo_registo, pk):
                     registar_log(f"Registo {tipo_registo} - Data inválida (chave primária {pk}): {data}")
                     break
             if len(partes_data[0]) == 2 and len(partes_data[1]) == 2 and len(partes_data[2]) == 4:
-                data = datetime.datetime.strptime(data, "%d-%m-%Y")
                 return data
             else:
                 print("-> Erro: Data inválida, formato com valores errados. Utilize o formato DD-MM-AAAA com digitos numéricos.")
@@ -204,6 +203,8 @@ def validar_id(tipo_registo):
 def calcular_duracao_reparacao(dt_inicio, dt_p_fim, dt_fim, tipo_registo):
     if (dt_fim == ""):
         dt_fim = dt_p_fim
+    dt_inicio = datetime.datetime.strptime(dt_inicio, "%d-%m-%Y")
+    dt_fim = datetime.datetime.strptime(dt_fim, "%d-%m-%Y")
     duracao = (dt_fim - dt_inicio).days + 1
     if duracao < 1:
         print("-> Erro: A data prevista de término deve ser posterior à data agendada.")
@@ -605,7 +606,6 @@ def consultar_reparações():
         print(f"-> Erro ao consultar reparações: {e}")
         registar_log(f"Consulta Reparações - Erro BD: {e}")
     finally:
-        ispressed()
         if conexao is not None:
             conexao.close()
         ispressed() 
